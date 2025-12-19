@@ -1,21 +1,21 @@
 <script setup lang="ts">
-import { Head, router, useForm } from '@inertiajs/vue3';
-import { ref, computed } from 'vue';
-import AppLayout from '@/layouts/AppLayout.vue';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import AppLayout from '@/layouts/AppLayout.vue';
+import { formatFileSize } from '@/lib/utils';
+import type { Media } from '@/types/media';
+import { Head, router, useForm } from '@inertiajs/vue3';
 import {
-    Upload,
-    Trash2,
     Copy,
+    Download,
     Grid3x3,
     List,
     Search,
-    Download,
+    Trash2,
+    Upload,
 } from 'lucide-vue-next';
-import type { Media } from '@/types/media';
-import { formatFileSize } from '@/lib/utils';
+import { ref } from 'vue';
 
 interface Props {
     media: {
@@ -157,9 +157,9 @@ const isImage = (mimeType: string): boolean => {
             <!-- Toolbar -->
             <div class="flex items-center justify-between gap-4">
                 <div class="flex flex-1 items-center gap-2">
-                    <div class="relative flex-1 max-w-sm">
+                    <div class="relative max-w-sm flex-1">
                         <Search
-                            class="absolute left-2 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                            class="absolute top-1/2 left-2 size-4 -translate-y-1/2 text-muted-foreground"
                         />
                         <Input
                             v-model="searchForm.search"
@@ -216,7 +216,10 @@ const isImage = (mimeType: string): boolean => {
                                 class="flex size-full items-center justify-center bg-muted"
                             >
                                 <span class="text-xs text-muted-foreground">{{
-                                    item.file_name.split('.').pop()?.toUpperCase()
+                                    item.file_name
+                                        .split('.')
+                                        .pop()
+                                        ?.toUpperCase()
                                 }}</span>
                             </div>
                         </div>
@@ -265,7 +268,9 @@ const isImage = (mimeType: string): boolean => {
                         :key="item.id"
                         class="flex items-center gap-4 p-3"
                     >
-                        <div class="size-16 flex-shrink-0 overflow-hidden rounded">
+                        <div
+                            class="size-16 flex-shrink-0 overflow-hidden rounded"
+                        >
                             <img
                                 v-if="isImage(item.mime_type)"
                                 :src="item.thumbnail_url"
@@ -277,14 +282,18 @@ const isImage = (mimeType: string): boolean => {
                                 class="flex size-full items-center justify-center bg-muted"
                             >
                                 <span class="text-xs text-muted-foreground">{{
-                                    item.file_name.split('.').pop()?.toUpperCase()
+                                    item.file_name
+                                        .split('.')
+                                        .pop()
+                                        ?.toUpperCase()
                                 }}</span>
                             </div>
                         </div>
                         <div class="flex-1">
                             <p class="font-medium">{{ item.name }}</p>
                             <p class="text-sm text-muted-foreground">
-                                {{ item.file_name }} • {{ formatFileSize(item.size) }}
+                                {{ item.file_name }} •
+                                {{ formatFileSize(item.size) }}
                             </p>
                         </div>
                         <div class="flex gap-2">

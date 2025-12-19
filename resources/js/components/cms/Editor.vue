@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { useEditor, EditorContent } from '@tiptap/vue-3';
-import StarterKit from '@tiptap/starter-kit';
-import { watch } from 'vue';
 import { Button } from '@/components/ui/button';
+import StarterKit from '@tiptap/starter-kit';
+import { EditorContent, useEditor } from '@tiptap/vue-3';
 import {
     Bold,
+    Heading2,
+    Heading3,
     Italic,
     List,
     ListOrdered,
     Quote,
-    Heading2,
-    Heading3,
-    Undo,
     Redo,
+    Undo,
 } from 'lucide-vue-next';
+import { watch } from 'vue';
 
 interface Props {
     modelValue?: any;
@@ -53,9 +53,10 @@ watch(
     () => props.modelValue,
     (value) => {
         if (!editor.value) return;
-        
-        const isSame = JSON.stringify(editor.value.getJSON()) === JSON.stringify(value);
-        
+
+        const isSame =
+            JSON.stringify(editor.value.getJSON()) === JSON.stringify(value);
+
         if (!isSame && value) {
             editor.value.commands.setContent(value, false);
         }
@@ -102,7 +103,9 @@ watch(
                 variant="ghost"
                 size="sm"
                 type="button"
-                @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
+                @click="
+                    editor.chain().focus().toggleHeading({ level: 2 }).run()
+                "
                 :class="{
                     'bg-muted': editor.isActive('heading', { level: 2 }),
                 }"
@@ -114,7 +117,9 @@ watch(
                 variant="ghost"
                 size="sm"
                 type="button"
-                @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
+                @click="
+                    editor.chain().focus().toggleHeading({ level: 3 }).run()
+                "
                 :class="{
                     'bg-muted': editor.isActive('heading', { level: 3 }),
                 }"

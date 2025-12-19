@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
-import { Card } from '@/components/ui/card';
 import Editor from '@/components/cms/Editor.vue';
 import MediaPicker from '@/components/cms/MediaPicker.vue';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
 import type { FieldSchema } from '@/types/content-type';
 import type { Media } from '@/types/media';
+import { computed } from 'vue';
 
 interface Props {
     schema: FieldSchema[];
@@ -45,19 +44,23 @@ const getFieldValue = (fieldName: string) => {
             <template v-if="field.type === 'text'">
                 <Label :for="field.name">
                     {{ field.label }}
-                    <span v-if="field.required" class="text-destructive">*</span>
+                    <span v-if="field.required" class="text-destructive"
+                        >*</span
+                    >
                 </Label>
                 <Input
                     :id="field.name"
                     :value="getFieldValue(field.name)"
                     :placeholder="field.placeholder"
                     :required="field.required"
-                    @input="updateField(field.name, ($event.target as HTMLInputElement).value)"
+                    @input="
+                        updateField(
+                            field.name,
+                            ($event.target as HTMLInputElement).value,
+                        )
+                    "
                 />
-                <p
-                    v-if="field.help_text"
-                    class="text-xs text-muted-foreground"
-                >
+                <p v-if="field.help_text" class="text-xs text-muted-foreground">
                     {{ field.help_text }}
                 </p>
             </template>
@@ -66,7 +69,9 @@ const getFieldValue = (fieldName: string) => {
             <template v-else-if="field.type === 'textarea'">
                 <Label :for="field.name">
                     {{ field.label }}
-                    <span v-if="field.required" class="text-destructive">*</span>
+                    <span v-if="field.required" class="text-destructive"
+                        >*</span
+                    >
                 </Label>
                 <Textarea
                     :id="field.name"
@@ -74,12 +79,14 @@ const getFieldValue = (fieldName: string) => {
                     :placeholder="field.placeholder"
                     :required="field.required"
                     rows="4"
-                    @input="updateField(field.name, ($event.target as HTMLTextAreaElement).value)"
+                    @input="
+                        updateField(
+                            field.name,
+                            ($event.target as HTMLTextAreaElement).value,
+                        )
+                    "
                 />
-                <p
-                    v-if="field.help_text"
-                    class="text-xs text-muted-foreground"
-                >
+                <p v-if="field.help_text" class="text-xs text-muted-foreground">
                     {{ field.help_text }}
                 </p>
             </template>
@@ -88,7 +95,9 @@ const getFieldValue = (fieldName: string) => {
             <template v-else-if="field.type === 'number'">
                 <Label :for="field.name">
                     {{ field.label }}
-                    <span v-if="field.required" class="text-destructive">*</span>
+                    <span v-if="field.required" class="text-destructive"
+                        >*</span
+                    >
                 </Label>
                 <Input
                     :id="field.name"
@@ -96,19 +105,27 @@ const getFieldValue = (fieldName: string) => {
                     :value="getFieldValue(field.name)"
                     :placeholder="field.placeholder"
                     :required="field.required"
-                    @input="updateField(field.name, ($event.target as HTMLInputElement).value ? parseFloat(($event.target as HTMLInputElement).value) : null)"
+                    @input="
+                        updateField(
+                            field.name,
+                            ($event.target as HTMLInputElement).value
+                                ? parseFloat(
+                                      ($event.target as HTMLInputElement).value,
+                                  )
+                                : null,
+                        )
+                    "
                 />
-                <p
-                    v-if="field.help_text"
-                    class="text-xs text-muted-foreground"
-                >
+                <p v-if="field.help_text" class="text-xs text-muted-foreground">
                     {{ field.help_text }}
                 </p>
             </template>
 
             <!-- Boolean Field -->
             <template v-else-if="field.type === 'boolean'">
-                <div class="flex items-center justify-between rounded-lg border p-3">
+                <div
+                    class="flex items-center justify-between rounded-lg border p-3"
+                >
                     <div>
                         <Label :for="field.name">{{ field.label }}</Label>
                         <p
@@ -130,14 +147,21 @@ const getFieldValue = (fieldName: string) => {
             <template v-else-if="field.type === 'select'">
                 <Label :for="field.name">
                     {{ field.label }}
-                    <span v-if="field.required" class="text-destructive">*</span>
+                    <span v-if="field.required" class="text-destructive"
+                        >*</span
+                    >
                 </Label>
                 <select
                     :id="field.name"
                     :value="getFieldValue(field.name)"
                     :required="field.required"
-                    class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                    @change="updateField(field.name, ($event.target as HTMLSelectElement).value)"
+                    class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden"
+                    @change="
+                        updateField(
+                            field.name,
+                            ($event.target as HTMLSelectElement).value,
+                        )
+                    "
                 >
                     <option value="">
                         {{ field.placeholder || 'Select an option' }}
@@ -150,10 +174,7 @@ const getFieldValue = (fieldName: string) => {
                         {{ option.label }}
                     </option>
                 </select>
-                <p
-                    v-if="field.help_text"
-                    class="text-xs text-muted-foreground"
-                >
+                <p v-if="field.help_text" class="text-xs text-muted-foreground">
                     {{ field.help_text }}
                 </p>
             </template>
@@ -162,19 +183,23 @@ const getFieldValue = (fieldName: string) => {
             <template v-else-if="field.type === 'date'">
                 <Label :for="field.name">
                     {{ field.label }}
-                    <span v-if="field.required" class="text-destructive">*</span>
+                    <span v-if="field.required" class="text-destructive"
+                        >*</span
+                    >
                 </Label>
                 <Input
                     :id="field.name"
                     type="date"
                     :value="getFieldValue(field.name)"
                     :required="field.required"
-                    @input="updateField(field.name, ($event.target as HTMLInputElement).value)"
+                    @input="
+                        updateField(
+                            field.name,
+                            ($event.target as HTMLInputElement).value,
+                        )
+                    "
                 />
-                <p
-                    v-if="field.help_text"
-                    class="text-xs text-muted-foreground"
-                >
+                <p v-if="field.help_text" class="text-xs text-muted-foreground">
                     {{ field.help_text }}
                 </p>
             </template>
@@ -183,19 +208,23 @@ const getFieldValue = (fieldName: string) => {
             <template v-else-if="field.type === 'datetime'">
                 <Label :for="field.name">
                     {{ field.label }}
-                    <span v-if="field.required" class="text-destructive">*</span>
+                    <span v-if="field.required" class="text-destructive"
+                        >*</span
+                    >
                 </Label>
                 <Input
                     :id="field.name"
                     type="datetime-local"
                     :value="getFieldValue(field.name)"
                     :required="field.required"
-                    @input="updateField(field.name, ($event.target as HTMLInputElement).value)"
+                    @input="
+                        updateField(
+                            field.name,
+                            ($event.target as HTMLInputElement).value,
+                        )
+                    "
                 />
-                <p
-                    v-if="field.help_text"
-                    class="text-xs text-muted-foreground"
-                >
+                <p v-if="field.help_text" class="text-xs text-muted-foreground">
                     {{ field.help_text }}
                 </p>
             </template>
@@ -204,7 +233,9 @@ const getFieldValue = (fieldName: string) => {
             <template v-else-if="field.type === 'image'">
                 <Label>
                     {{ field.label }}
-                    <span v-if="field.required" class="text-destructive">*</span>
+                    <span v-if="field.required" class="text-destructive"
+                        >*</span
+                    >
                 </Label>
                 <MediaPicker
                     :model-value="getFieldValue(field.name) as Media"
@@ -212,10 +243,7 @@ const getFieldValue = (fieldName: string) => {
                     accept="image/*"
                     @update:model-value="updateField(field.name, $event)"
                 />
-                <p
-                    v-if="field.help_text"
-                    class="text-xs text-muted-foreground"
-                >
+                <p v-if="field.help_text" class="text-xs text-muted-foreground">
                     {{ field.help_text }}
                 </p>
             </template>
@@ -224,17 +252,16 @@ const getFieldValue = (fieldName: string) => {
             <template v-else-if="field.type === 'file'">
                 <Label>
                     {{ field.label }}
-                    <span v-if="field.required" class="text-destructive">*</span>
+                    <span v-if="field.required" class="text-destructive"
+                        >*</span
+                    >
                 </Label>
                 <MediaPicker
                     :model-value="getFieldValue(field.name) as Media"
                     :label="`Select ${field.label}`"
                     @update:model-value="updateField(field.name, $event)"
                 />
-                <p
-                    v-if="field.help_text"
-                    class="text-xs text-muted-foreground"
-                >
+                <p v-if="field.help_text" class="text-xs text-muted-foreground">
                     {{ field.help_text }}
                 </p>
             </template>
@@ -243,17 +270,16 @@ const getFieldValue = (fieldName: string) => {
             <template v-else-if="field.type === 'rich_text'">
                 <Label>
                     {{ field.label }}
-                    <span v-if="field.required" class="text-destructive">*</span>
+                    <span v-if="field.required" class="text-destructive"
+                        >*</span
+                    >
                 </Label>
                 <Editor
                     :model-value="getFieldValue(field.name)"
                     :placeholder="field.placeholder"
                     @update:model-value="updateField(field.name, $event)"
                 />
-                <p
-                    v-if="field.help_text"
-                    class="text-xs text-muted-foreground"
-                >
+                <p v-if="field.help_text" class="text-xs text-muted-foreground">
                     {{ field.help_text }}
                 </p>
             </template>

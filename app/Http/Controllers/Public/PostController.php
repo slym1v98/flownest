@@ -72,7 +72,7 @@ class PostController extends Controller
         $metaTitle = $seoData['meta_title'] ?? $post->title;
         $metaDescription = $seoData['meta_description'] ?? $post->excerpt;
         $ogImage = $seoData['og_image'] ?? $post->getFirstMediaUrl('images', 'preview');
-        
+
         return Inertia::render('public/posts/Show', [
             'post' => [
                 'id' => $post->id,

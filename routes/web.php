@@ -17,7 +17,7 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Public post routes  
+// Public post routes
 Route::prefix('posts')->name('posts.')->middleware('cacheResponse')->group(function () {
     Route::get('/', [PublicPostController::class, 'index'])->name('index');
     Route::get('/{slug}', [PublicPostController::class, 'show'])->name('show');
@@ -26,7 +26,7 @@ Route::prefix('posts')->name('posts.')->middleware('cacheResponse')->group(funct
 // Admin routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('posts', PostController::class);
-    
+
     // Media management
     Route::get('media', [MediaController::class, 'index'])->name('media.index');
     Route::post('media', [MediaController::class, 'store'])->name('media.store');

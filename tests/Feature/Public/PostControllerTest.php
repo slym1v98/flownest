@@ -5,7 +5,6 @@ namespace Tests\Feature\Public;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -51,16 +50,15 @@ class PostControllerTest extends TestCase
         $response = $this->get('/posts');
 
         $response->assertStatus(200);
-        
+
         // Dump response to see what's happening
         if ($response->status() !== 200) {
             dump($response->getContent());
         }
-        
-        $response->assertInertia(fn ($page) => 
-            $page->component('public/posts/Index')
-                ->has('posts.data', 1)
-                ->where('posts.data.0.id', $publishedPost->id)
+
+        $response->assertInertia(fn ($page) => $page->component('public/posts/Index')
+            ->has('posts.data', 1)
+            ->where('posts.data.0.id', $publishedPost->id)
         );
     }
 
@@ -81,10 +79,9 @@ class PostControllerTest extends TestCase
         $response = $this->get('/posts?search=Laravel');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => 
-            $page->component('public/posts/Index')
-                ->has('posts.data', 1)
-                ->where('posts.data.0.id', $post1->id)
+        $response->assertInertia(fn ($page) => $page->component('public/posts/Index')
+            ->has('posts.data', 1)
+            ->where('posts.data.0.id', $post1->id)
         );
     }
 
@@ -105,10 +102,9 @@ class PostControllerTest extends TestCase
         $response = $this->get('/posts?featured=true');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => 
-            $page->component('public/posts/Index')
-                ->has('posts.data', 1)
-                ->where('posts.data.0.id', $featuredPost->id)
+        $response->assertInertia(fn ($page) => $page->component('public/posts/Index')
+            ->has('posts.data', 1)
+            ->where('posts.data.0.id', $featuredPost->id)
         );
     }
 
@@ -122,11 +118,10 @@ class PostControllerTest extends TestCase
         $response = $this->get("/posts/{$post->slug}");
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => 
-            $page->component('public/posts/Show')
-                ->where('post.id', $post->id)
-                ->where('post.title', $post->title)
-                ->has('seo')
+        $response->assertInertia(fn ($page) => $page->component('public/posts/Show')
+            ->where('post.id', $post->id)
+            ->where('post.title', $post->title)
+            ->has('seo')
         );
     }
 
@@ -169,11 +164,10 @@ class PostControllerTest extends TestCase
         $response = $this->get("/posts/{$post->slug}");
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => 
-            $page->component('public/posts/Show')
-                ->where('seo.title', 'Custom SEO Title')
-                ->where('seo.description', 'Custom SEO Description')
-                ->where('seo.keywords', 'laravel, php, testing')
+        $response->assertInertia(fn ($page) => $page->component('public/posts/Show')
+            ->where('seo.title', 'Custom SEO Title')
+            ->where('seo.description', 'Custom SEO Description')
+            ->where('seo.keywords', 'laravel, php, testing')
         );
     }
 
@@ -190,10 +184,9 @@ class PostControllerTest extends TestCase
         $response = $this->get("/posts/{$post->slug}");
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => 
-            $page->component('public/posts/Show')
-                ->where('seo.title', 'My Great Post')
-                ->where('seo.description', 'This is an excerpt')
+        $response->assertInertia(fn ($page) => $page->component('public/posts/Show')
+            ->where('seo.title', 'My Great Post')
+            ->where('seo.description', 'This is an excerpt')
         );
     }
 
@@ -207,10 +200,9 @@ class PostControllerTest extends TestCase
         $response = $this->get('/posts');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => 
-            $page->component('public/posts/Index')
-                ->has('posts.data.0.author')
-                ->where('posts.data.0.author.name', $this->user->name)
+        $response->assertInertia(fn ($page) => $page->component('public/posts/Index')
+            ->has('posts.data.0.author')
+            ->where('posts.data.0.author.name', $this->user->name)
         );
     }
 
@@ -225,11 +217,10 @@ class PostControllerTest extends TestCase
         $response = $this->get('/posts');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => 
-            $page->component('public/posts/Index')
-                ->has('posts.data', 12)
-                ->where('posts.total', 15)
-                ->where('posts.last_page', 2)
+        $response->assertInertia(fn ($page) => $page->component('public/posts/Index')
+            ->has('posts.data', 12)
+            ->where('posts.total', 15)
+            ->where('posts.last_page', 2)
         );
     }
 }

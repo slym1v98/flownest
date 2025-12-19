@@ -67,12 +67,12 @@ class PostController extends Controller
         // Auto-generate slug if not provided
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
-            
+
             // Ensure uniqueness
             $baseSlug = $validated['slug'];
             $counter = 1;
             while (Post::where('slug', $validated['slug'])->exists()) {
-                $validated['slug'] = $baseSlug . '-' . $counter++;
+                $validated['slug'] = $baseSlug.'-'.$counter++;
             }
         }
 
@@ -123,12 +123,12 @@ class PostController extends Controller
         // Auto-generate slug if not provided
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
-            
+
             // Ensure uniqueness
             $baseSlug = $validated['slug'];
             $counter = 1;
             while (Post::where('slug', $validated['slug'])->where('id', '!=', $post->id)->exists()) {
-                $validated['slug'] = $baseSlug . '-' . $counter++;
+                $validated['slug'] = $baseSlug.'-'.$counter++;
             }
         }
 

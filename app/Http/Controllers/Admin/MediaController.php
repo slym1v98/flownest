@@ -44,8 +44,8 @@ class MediaController extends Controller
                 'size' => $item->size,
                 'collection_name' => $item->collection_name,
                 'url' => $item->getUrl(),
-                'thumbnail_url' => $item->hasGeneratedConversion('thumb') 
-                    ? $item->getUrl('thumb') 
+                'thumbnail_url' => $item->hasGeneratedConversion('thumb')
+                    ? $item->getUrl('thumb')
                     : $item->getUrl(),
                 'created_at' => $item->created_at->toISOString(),
                 'updated_at' => $item->updated_at->toISOString(),
@@ -93,8 +93,8 @@ class MediaController extends Controller
                 'size' => $media->size,
                 'collection_name' => $media->collection_name,
                 'url' => $media->getUrl(),
-                'thumbnail_url' => $media->hasGeneratedConversion('thumb') 
-                    ? $media->getUrl('thumb') 
+                'thumbnail_url' => $media->hasGeneratedConversion('thumb')
+                    ? $media->getUrl('thumb')
                     : $media->getUrl(),
                 'created_at' => $media->created_at->toISOString(),
                 'updated_at' => $media->updated_at->toISOString(),
@@ -166,8 +166,8 @@ class MediaController extends Controller
                 'size' => $item->size,
                 'collection_name' => $item->collection_name,
                 'url' => $item->getUrl(),
-                'thumbnail_url' => $item->hasGeneratedConversion('thumb') 
-                    ? $item->getUrl('thumb') 
+                'thumbnail_url' => $item->hasGeneratedConversion('thumb')
+                    ? $item->getUrl('thumb')
                     : $item->getUrl(),
                 'created_at' => $item->created_at->toISOString(),
                 'updated_at' => $item->updated_at->toISOString(),

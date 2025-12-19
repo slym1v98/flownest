@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { Head, Link, router } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import {
     Table,
     TableBody,
@@ -12,9 +10,11 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table';
-import { Plus, Search, Edit, Trash2 } from 'lucide-vue-next';
-import { ref, watch } from 'vue';
+import AppLayout from '@/layouts/AppLayout.vue';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { debounce } from 'lodash-es';
+import { Edit, Plus, Search, Trash2 } from 'lucide-vue-next';
+import { ref, watch } from 'vue';
 
 interface User {
     id: number;
@@ -137,7 +137,7 @@ const formatDate = (date: string) => {
             <div class="flex items-center gap-3">
                 <div class="relative flex-1">
                     <Search
-                        class="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                        class="absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
                     />
                     <Input
                         v-model="search"
@@ -147,7 +147,7 @@ const formatDate = (date: string) => {
                 </div>
                 <select
                     v-model="status"
-                    class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    class="h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden"
                 >
                     <option value="">All Status</option>
                     <option value="draft">Draft</option>
@@ -169,10 +169,7 @@ const formatDate = (date: string) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow
-                            v-for="post in posts.data"
-                            :key="post.id"
-                        >
+                        <TableRow v-for="post in posts.data" :key="post.id">
                             <TableCell>
                                 <div>
                                     <div class="font-medium">
@@ -200,8 +197,12 @@ const formatDate = (date: string) => {
                                 </div>
                             </TableCell>
                             <TableCell class="text-right">
-                                <div class="flex items-center justify-end gap-2">
-                                    <Link :href="`/admin/posts/${post.id}/edit`">
+                                <div
+                                    class="flex items-center justify-end gap-2"
+                                >
+                                    <Link
+                                        :href="`/admin/posts/${post.id}/edit`"
+                                    >
                                         <Button variant="ghost" size="sm">
                                             <Edit class="size-4" />
                                         </Button>
@@ -260,7 +261,11 @@ const formatDate = (date: string) => {
                                     link.active,
                             }"
                         >
-                            {{ link.label.replace(/&laquo;|&raquo;/g, (m) => m === '&laquo;' ? '«' : '»') }}
+                            {{
+                                link.label.replace(/&laquo;|&raquo;/g, (m) =>
+                                    m === '&laquo;' ? '«' : '»',
+                                )
+                            }}
                         </Button>
                     </Link>
                 </div>
