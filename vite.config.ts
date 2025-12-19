@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
+import typography from '@tailwindcss/typography';
 
 export default defineConfig({
     plugins: [
@@ -11,7 +12,9 @@ export default defineConfig({
             ssr: 'resources/js/ssr.ts',
             refresh: true,
         }),
-        tailwindcss(),
+        tailwindcss({
+            plugins: [typography],
+        }),
         wayfinder({
             formVariants: true,
         }),
