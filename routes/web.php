@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,6 +19,12 @@ Route::get('dashboard', function () {
 // Admin routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('posts', PostController::class);
+    
+    // Media management
+    Route::get('media', [MediaController::class, 'index'])->name('media.index');
+    Route::post('media', [MediaController::class, 'store'])->name('media.store');
+    Route::delete('media/{media}', [MediaController::class, 'destroy'])->name('media.destroy');
+    Route::get('media/list', [MediaController::class, 'list'])->name('media.list');
 });
 
 require __DIR__.'/settings.php';

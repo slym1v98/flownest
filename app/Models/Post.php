@@ -60,4 +60,21 @@ class Post extends Model implements HasMedia
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
             ->maxFilesize(2 * 1024 * 1024); // 2MB
     }
+
+    /**
+     * Register media conversions.
+     */
+    public function registerMediaConversions(?\Spatie\MediaLibrary\MediaCollections\Models\Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(300)
+            ->height(300)
+            ->sharpen(10)
+            ->nonQueued();
+
+        $this->addMediaConversion('preview')
+            ->width(800)
+            ->height(600)
+            ->sharpen(10);
+    }
 }

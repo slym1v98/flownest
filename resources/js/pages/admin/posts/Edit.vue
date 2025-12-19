@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { Card } from '@/components/ui/card';
 import Editor from '@/components/cms/Editor.vue';
+import SeoManager from '@/components/cms/SeoManager.vue';
 import { Save } from 'lucide-vue-next';
 
 interface User {
@@ -190,40 +191,11 @@ const submit = () => {
                         </Card>
 
                         <!-- SEO Settings -->
-                        <Card class="p-3">
-                            <h3 class="mb-3 font-semibold">SEO Settings</h3>
-                            <div class="space-y-3">
-                                <div class="space-y-1.5">
-                                    <Label for="meta_title">Meta Title</Label>
-                                    <Input
-                                        id="meta_title"
-                                        v-model="form.seo_data.meta_title"
-                                        placeholder="SEO title"
-                                    />
-                                </div>
-                                <div class="space-y-1.5">
-                                    <Label for="meta_description"
-                                        >Meta Description</Label
-                                    >
-                                    <Textarea
-                                        id="meta_description"
-                                        v-model="form.seo_data.meta_description"
-                                        placeholder="SEO description"
-                                        rows="2"
-                                    />
-                                </div>
-                                <div class="space-y-1.5">
-                                    <Label for="meta_keywords"
-                                        >Meta Keywords</Label
-                                    >
-                                    <Input
-                                        id="meta_keywords"
-                                        v-model="form.seo_data.meta_keywords"
-                                        placeholder="keyword1, keyword2"
-                                    />
-                                </div>
-                            </div>
-                        </Card>
+                        <SeoManager
+                            v-model="form.seo_data"
+                            :fallback-title="form.title"
+                            :fallback-description="form.excerpt"
+                        />
 
                         <!-- Submit Button -->
                         <Button
