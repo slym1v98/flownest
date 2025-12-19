@@ -50,4 +50,14 @@ class Post extends Model implements HasMedia
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Register media collections.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('images')
+            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+            ->maxFilesize(2 * 1024 * 1024); // 2MB
+    }
 }

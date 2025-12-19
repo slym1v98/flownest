@@ -259,8 +259,9 @@ const formatDate = (date: string) => {
                                 'bg-primary text-primary-foreground':
                                     link.active,
                             }"
-                            v-html="link.label"
-                        />
+                        >
+                            {{ link.label.replace(/&laquo;|&raquo;/g, (m) => m === '&laquo;' ? '«' : '»') }}
+                        </Button>
                     </Link>
                 </div>
             </div>
