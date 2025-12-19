@@ -14,5 +14,5 @@ return [
     | API Prefix
     |--------------------------------------------------------------------------
     */
-    'prefix' => env('API_PREFIX', '/api'),
+    'prefix' => env('API_PREFIX', '/api/v1/'),
 ];

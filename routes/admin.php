@@ -6,10 +6,7 @@ use App\Http\Controllers\Settings\TwoFactorAuthenticationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::group([
-    'domain' => config('admin.url'),
-    'prefix' => config('admin.prefix'),
-], function () {
+Route::domain(config('admin.url'))->prefix(config('admin.prefix'))->group(function () {
     Route::get('/', function () {
         return Inertia::render('Dashboard');
     })->middleware(['auth', 'verified'])->name('dashboard');
