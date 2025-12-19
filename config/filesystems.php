@@ -60,6 +60,31 @@ return [
             'report' => false,
         ],
 
+        // DigitalOcean Spaces (S3-compatible)
+        'spaces' => [
+            'driver' => 's3',
+            'key' => env('DO_SPACES_KEY'),
+            'secret' => env('DO_SPACES_SECRET'),
+            'region' => env('DO_SPACES_REGION', 'nyc3'),
+            'bucket' => env('DO_SPACES_BUCKET'),
+            'url' => env('DO_SPACES_URL'),
+            'endpoint' => env('DO_SPACES_ENDPOINT'),
+            'use_path_style_endpoint' => false,
+            'throw' => false,
+            'report' => false,
+            'visibility' => 'public',
+        ],
+
+        // CDN/Media disk (automatically uploads to configured cloud storage)
+        'media' => [
+            'driver' => env('MEDIA_DISK_DRIVER', 'public'),
+            'root' => env('MEDIA_DISK_DRIVER') === 'local' ? storage_path('app/media') : null,
+            'url' => env('MEDIA_URL', env('APP_URL').'/storage/media'),
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
     ],
 
     /*

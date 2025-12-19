@@ -32,5 +32,18 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // Sentry Integration
+        if (config('services.sentry.dsn')) {
+            $exceptions->reportable(function (Throwable $e) {
+                if (app()->bound('sentry')) {
+                    app('sentry')->captureException($e);
+                }
+            });
+        }
+
+        // Don't report specific exceptions
+        $exceptions->dontReport([
+            \Illuminate\Auth\AuthenticationException::class,
+            \Illuminate\Validation\ValidationException::class,
+        ]);
     })->create();

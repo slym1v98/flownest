@@ -1,0 +1,74 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea
+.vscode
+.nova
+.fleet
+.zed
+.phpactor.json
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules
+vendor
+
+# Build artifacts
+public/build
+public/hot
+bootstrap/ssr
+
+# Storage
+storage/app/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+storage/*.key
+!storage/app/.gitignore
+!storage/app/public
+!storage/framework/cache/.gitignore
+!storage/framework/sessions/.gitignore
+!storage/framework/views/.gitignore
+!storage/logs/.gitignore
+
+# Testing
+tests
+phpunit.xml
+.phpunit.result.cache
+.phpunit.cache
+
+# Documentation
+*.md
+!README.md
+
+# CI/CD
+.github
+
+# Temporary files
+*.log
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Composer
+composer.phar
+auth.json
+
+# NPM
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Laravel specific
+Homestead.json
+Homestead.yaml
+.vagrant
