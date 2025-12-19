@@ -17,6 +17,7 @@
         "laravel/wayfinder": "^0.1.9",
         "predis/predis": "^3.3",
         "spatie/laravel-medialibrary": "^11.0",
+        "spatie/laravel-permission": "*",
         "spatie/laravel-responsecache": "^7.7"
     },
     "require-dev": {

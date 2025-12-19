@@ -2,16 +2,28 @@
 
 namespace App\Models;
 
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Post extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia, SoftDeletes;
+    use HasFactory, HasTranslations, InteractsWithMedia, SoftDeletes;
+
+    /**
+     * The attributes that are translatable.
+     *
+     * @var array<string>
+     */
+    protected $translatable = [
+        'title',
+        'excerpt',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +39,9 @@ class Post extends Model implements HasMedia
         'is_featured',
         'seo_data',
         'user_id',
+        'reviewed_by',
+        'reviewed_at',
+        'review_notes',
     ];
 
     /**
@@ -37,9 +52,12 @@ class Post extends Model implements HasMedia
     protected function casts(): array
     {
         return [
+            'title' => 'array',
+            'excerpt' => 'array',
             'content' => 'array',
             'seo_data' => 'array',
             'is_featured' => 'boolean',
+            'reviewed_at' => 'datetime',
         ];
     }
 
@@ -52,11 +70,35 @@ class Post extends Model implements HasMedia
     }
 
     /**
+     * Get the user who reviewed the post.
+     */
+    public function reviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'reviewed_by');
+    }
+
+    /**
+     * Get the revisions for the post.
+     */
+    public function revisions(): HasMany
+    {
+        return $this->hasMany(PostRevision::class)->latest();
+    }
+
+    /**
      * Scope a query to only include published posts.
      */
     public function scopePublished($query)
     {
         return $query->where('status', 'published');
+    }
+
+    /**
+     * Scope a query to only include pending review posts.
+     */
+    public function scopePendingReview($query)
+    {
+        return $query->where('status', 'pending_review');
     }
 
     /**
@@ -77,6 +119,24 @@ class Post extends Model implements HasMedia
                 ->orWhere('excerpt', 'like', "%{$search}%")
                 ->orWhere('content', 'like', "%{$search}%");
         });
+    }
+
+    /**
+     * Create a new revision for this post.
+     */
+    public function createRevision(?string $reason = null): PostRevision
+    {
+        return $this->revisions()->create([
+            'user_id' => $this->user_id,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'content' => $this->content,
+            'excerpt' => $this->excerpt,
+            'status' => $this->status,
+            'is_featured' => $this->is_featured,
+            'seo_data' => $this->seo_data,
+            'reason' => $reason,
+        ]);
     }
 
     /**

@@ -57,7 +57,7 @@ class PostController extends Controller
             'slug' => 'nullable|string|max:255|unique:posts,slug',
             'content' => 'nullable|array',
             'excerpt' => 'nullable|string',
-            'status' => ['required', Rule::in(['draft', 'published', 'archived'])],
+            'status' => ['required', Rule::in(['draft', 'pending_review', 'published', 'archived'])],
             'is_featured' => 'boolean',
             'seo_data' => 'nullable|array',
             'media' => 'nullable|array',
@@ -87,6 +87,9 @@ class PostController extends Controller
             }
         }
 
+        // Create initial revision
+        $post->createRevision('Initial version');
+
         return redirect()->route('admin.posts.index')
             ->with('success', 'Post created successfully.');
     }
@@ -94,12 +97,14 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post): Response
+    public function edit(Request $request, Post $post): Response
     {
-        $post->load('user', 'media');
+        $post->load('user', 'reviewer', 'media', 'revisions.user');
 
         return Inertia::render('admin/posts/Edit', [
             'post' => $post,
+            'canPublish' => $request->user()->can('publish-posts'),
+            'canDelete' => $request->user()->can('delete-posts'),
         ]);
     }
 
@@ -113,7 +118,7 @@ class PostController extends Controller
             'slug' => ['nullable', 'string', 'max:255', Rule::unique('posts', 'slug')->ignore($post->id)],
             'content' => 'nullable|array',
             'excerpt' => 'nullable|string',
-            'status' => ['required', Rule::in(['draft', 'published', 'archived'])],
+            'status' => ['required', Rule::in(['draft', 'pending_review', 'published', 'archived'])],
             'is_featured' => 'boolean',
             'seo_data' => 'nullable|array',
             'media' => 'nullable|array',
@@ -131,6 +136,9 @@ class PostController extends Controller
                 $validated['slug'] = $baseSlug.'-'.$counter++;
             }
         }
+
+        // Create revision before updating
+        $post->createRevision('Post updated');
 
         $post->update($validated);
 
