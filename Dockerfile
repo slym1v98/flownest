@@ -95,6 +95,10 @@ COPY docker/php/php.ini /usr/local/etc/php/conf.d/custom.ini
 COPY docker/php/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
 COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
 
+# Copy health check script
+COPY --chown=www:www docker/scripts/php-fpm-healthcheck.sh /usr/local/bin/php-fpm-healthcheck
+RUN chmod +x /usr/local/bin/php-fpm-healthcheck
+
 # Set proper permissions
 RUN chown -R www:www /var/www/html/storage /var/www/html/bootstrap/cache \
     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
