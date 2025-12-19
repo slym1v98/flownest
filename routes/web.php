@@ -17,7 +17,7 @@ Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Public post routes
+// Public post routes  
 Route::prefix('posts')->name('posts.')->middleware('cacheResponse')->group(function () {
     Route::get('/', [PublicPostController::class, 'index'])->name('index');
     Route::get('/{slug}', [PublicPostController::class, 'show'])->name('show');
