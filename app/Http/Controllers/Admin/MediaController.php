@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MediaItem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -17,6 +18,7 @@ class MediaController extends Controller
     public function index(Request $request): Response
     {
         $query = Media::query()
+            ->where('model_type', MediaItem::class)
             ->orderBy('created_at', 'desc');
 
         // Filter by collection
@@ -74,25 +76,14 @@ class MediaController extends Controller
         $uploadedMedia = [];
 
         foreach ($request->file('files') as $file) {
-            // Create a temporary model to attach media
-            // Since we don't have a specific model, we'll use a generic approach
-            // For now, we'll store media without a model association
-            $media = Media::create([
-                'model_type' => 'standalone',
-                'model_id' => 0,
-                'collection_name' => $collection,
+            // Create a MediaItem to attach the file to
+            $mediaItem = MediaItem::create([
                 'name' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
-                'file_name' => $file->getClientOriginalName(),
-                'mime_type' => $file->getMimeType(),
-                'disk' => config('media-library.disk_name', 'public'),
-                'size' => $file->getSize(),
-                'manipulations' => [],
-                'custom_properties' => [],
-                'generated_conversions' => [],
-                'responsive_images' => [],
+                'user_id' => $request->user()->id,
             ]);
 
-            $media->copyMedia($file->getRealPath());
+            $media = $mediaItem->addMedia($file)
+                ->toMediaCollection($collection);
 
             $uploadedMedia[] = [
                 'id' => $media->id,
@@ -121,6 +112,13 @@ class MediaController extends Controller
      */
     public function destroy(Media $media): JsonResponse
     {
+        // Only allow deleting media attached to MediaItem
+        if ($media->model_type !== MediaItem::class) {
+            return response()->json([
+                'message' => 'Cannot delete this media item',
+            ], 403);
+        }
+
         $media->delete();
 
         return response()->json([
@@ -134,6 +132,7 @@ class MediaController extends Controller
     public function list(Request $request): JsonResponse
     {
         $query = Media::query()
+            ->where('model_type', MediaItem::class)
             ->orderBy('created_at', 'desc');
 
         // Filter by collection
