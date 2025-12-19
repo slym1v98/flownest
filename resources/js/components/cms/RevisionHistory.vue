@@ -18,7 +18,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { router } from '@inertiajs/vue3';
 import { ClockIcon, RotateCcwIcon, UserIcon } from 'lucide-vue-next';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
 interface Revision {
   id: number;

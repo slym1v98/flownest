@@ -27,7 +27,7 @@ import {
 } from '@/components/ui/table';
 import { Head, router } from '@inertiajs/vue3';
 import { ShieldIcon, UserIcon } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 interface User {
   id: number;

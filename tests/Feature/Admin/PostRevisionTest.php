@@ -137,8 +137,11 @@ class PostRevisionTest extends TestCase
         $user = User::factory()->create();
         $post = Post::factory()->create(['user_id' => $user->id]);
 
+        // Create first revision
         $revision1 = $post->createRevision('First');
-        sleep(1); // Ensure different timestamps
+        
+        // Use Carbon to manipulate time for second revision
+        $this->travel(1)->seconds();
         $revision2 = $post->createRevision('Second');
 
         $revisions = $post->revisions;
