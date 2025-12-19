@@ -116,12 +116,12 @@ const formatDate = (date: string) => {
     <Head title="Posts" />
 
     <AppLayout>
-        <div class="space-y-6">
+        <div class="space-y-4">
             <!-- Header -->
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-3xl font-bold tracking-tight">Posts</h1>
-                    <p class="mt-1 text-sm text-muted-foreground">
+                    <h1 class="text-2xl font-bold tracking-tight">Posts</h1>
+                    <p class="text-sm text-muted-foreground">
                         Manage your blog posts
                     </p>
                 </div>
@@ -134,7 +134,7 @@ const formatDate = (date: string) => {
             </div>
 
             <!-- Filters -->
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
                 <div class="relative flex-1">
                     <Search
                         class="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"

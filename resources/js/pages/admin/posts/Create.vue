@@ -35,19 +35,19 @@ const submit = () => {
     <Head title="Create Post" />
 
     <AppLayout>
-        <div class="space-y-6">
+        <div class="space-y-4">
             <!-- Header -->
             <div>
-                <h1 class="text-3xl font-bold tracking-tight">Create Post</h1>
-                <p class="mt-1 text-sm text-muted-foreground">
+                <h1 class="text-2xl font-bold tracking-tight">Create Post</h1>
+                <p class="text-sm text-muted-foreground">
                     Create a new blog post
                 </p>
             </div>
 
-            <form @submit.prevent="submit" class="space-y-6">
-                <div class="grid gap-6 lg:grid-cols-3">
+            <form @submit.prevent="submit" class="space-y-4">
+                <div class="grid gap-4 lg:grid-cols-3">
                     <!-- Main Content -->
-                    <div class="space-y-6 lg:col-span-2">
+                    <div class="space-y-4 lg:col-span-2">
                         <!-- Title -->
                         <div class="space-y-2">
                             <Label for="title">Title</Label>
@@ -127,11 +127,11 @@ const submit = () => {
                     </div>
 
                     <!-- Sidebar Settings -->
-                    <div class="space-y-6">
+                    <div class="space-y-4">
                         <!-- Publish Settings -->
-                        <Card class="p-4">
-                            <h3 class="mb-4 font-semibold">Publish Settings</h3>
-                            <div class="space-y-4">
+                        <Card class="p-3">
+                            <h3 class="mb-3 font-semibold">Publish Settings</h3>
+                            <div class="space-y-3">
                                 <!-- Status -->
                                 <div class="space-y-2">
                                     <Label for="status">Status</Label>
@@ -160,10 +160,10 @@ const submit = () => {
                         </Card>
 
                         <!-- SEO Settings -->
-                        <Card class="p-4">
-                            <h3 class="mb-4 font-semibold">SEO Settings</h3>
-                            <div class="space-y-4">
-                                <div class="space-y-2">
+                        <Card class="p-3">
+                            <h3 class="mb-3 font-semibold">SEO Settings</h3>
+                            <div class="space-y-3">
+                                <div class="space-y-1.5">
                                     <Label for="meta_title">Meta Title</Label>
                                     <Input
                                         id="meta_title"
@@ -171,7 +171,7 @@ const submit = () => {
                                         placeholder="SEO title"
                                     />
                                 </div>
-                                <div class="space-y-2">
+                                <div class="space-y-1.5">
                                     <Label for="meta_description"
                                         >Meta Description</Label
                                     >
@@ -179,10 +179,10 @@ const submit = () => {
                                         id="meta_description"
                                         v-model="form.seo_data.meta_description"
                                         placeholder="SEO description"
-                                        rows="3"
+                                        rows="2"
                                     />
                                 </div>
-                                <div class="space-y-2">
+                                <div class="space-y-1.5">
                                     <Label for="meta_keywords"
                                         >Meta Keywords</Label
                                     >
