@@ -96,7 +96,7 @@ const getFieldValue = (fieldName: string) => {
                     :value="getFieldValue(field.name)"
                     :placeholder="field.placeholder"
                     :required="field.required"
-                    @input="updateField(field.name, parseFloat(($event.target as HTMLInputElement).value))"
+                    @input="updateField(field.name, ($event.target as HTMLInputElement).value ? parseFloat(($event.target as HTMLInputElement).value) : null)"
                 />
                 <p
                     v-if="field.help_text"

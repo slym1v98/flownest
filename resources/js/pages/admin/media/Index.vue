@@ -15,6 +15,7 @@ import {
     Download,
 } from 'lucide-vue-next';
 import type { Media } from '@/types/media';
+import { formatFileSize } from '@/lib/utils';
 
 interface Props {
     media: {
@@ -88,14 +89,6 @@ const copyUrl = (url: string) => {
     navigator.clipboard.writeText(url);
     // You could add a toast notification here
     alert('URL copied to clipboard!');
-};
-
-const formatFileSize = (bytes: number): string => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
 };
 
 const search = () => {

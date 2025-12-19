@@ -110,12 +110,20 @@ class MediaController extends Controller
     /**
      * Remove the specified media.
      */
-    public function destroy(Media $media): JsonResponse
+    public function destroy(Request $request, Media $media): JsonResponse
     {
         // Only allow deleting media attached to MediaItem
         if ($media->model_type !== MediaItem::class) {
             return response()->json([
                 'message' => 'Cannot delete this media item',
+            ], 403);
+        }
+
+        // Check authorization - user can only delete their own media
+        $mediaItem = MediaItem::find($media->model_id);
+        if ($mediaItem && $mediaItem->user_id !== $request->user()->id) {
+            return response()->json([
+                'message' => 'Unauthorized to delete this media',
             ], 403);
         }
 

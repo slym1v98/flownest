@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { Image as ImageIcon, Upload, Search, X } from 'lucide-vue-next';
 import type { Media } from '@/types/media';
+import { getCsrfToken } from '@/lib/utils';
 
 interface Props {
     modelValue?: Media | Media[] | null;
@@ -113,9 +114,7 @@ const handleFileUpload = async (files: FileList | null) => {
             body: formData,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': document
-                    .querySelector('meta[name="csrf-token"]')
-                    ?.getAttribute('content') || '',
+                'X-CSRF-TOKEN': getCsrfToken(),
             },
         });
 

@@ -63,11 +63,12 @@ const displayDescription = computed(() => {
 
 const displayUrl = computed(() => {
     const url = props.siteUrl;
-    const slug = props.fallbackTitle
+    const title = props.fallbackTitle || 'page';
+    const slug = title
         .toLowerCase()
         .replace(/\s+/g, '-')
         .replace(/[^\w-]/g, '');
-    return `${url}/${slug || 'page'}`;
+    return `${url}/${slug}`;
 });
 
 // Social media specific
@@ -236,9 +237,9 @@ const descriptionStatus = computed(() => {
                         No image set
                     </div>
                     <div class="space-y-1 border-t p-3">
-                        <div class="text-xs uppercase text-muted-foreground">
-                            {{ new URL(displayUrl).hostname }}
-                        </div>
+                            <div class="text-xs uppercase text-muted-foreground">
+                                {{ new URL(displayUrl).hostname }}
+                            </div>
                         <div class="font-semibold">{{ ogTitle }}</div>
                         <div class="line-clamp-2 text-sm text-muted-foreground">
                             {{ ogDescription }}
