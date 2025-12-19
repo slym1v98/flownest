@@ -123,4 +123,11 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    // Admin Configurations
+    'admin' => [
+        'url' => env('ADMIN_URL', env('APP_URL', 'http://localhost')),
+        'prefix' => env('ADMIN_PREFIX', 'admin'),
+    ],
+
+    // Api
 ];
