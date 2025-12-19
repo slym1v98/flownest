@@ -36,19 +36,16 @@ class ContentType extends Model
 
     /**
      * Validate the schema structure.
-     *
-     * @param array $schema
-     * @return bool
      */
     public static function validateSchema(array $schema): bool
     {
         foreach ($schema as $field) {
-            if (!isset($field['name']) || !isset($field['type']) || !isset($field['label'])) {
+            if (! isset($field['name']) || ! isset($field['type']) || ! isset($field['label'])) {
                 return false;
             }
 
             $validTypes = ['text', 'textarea', 'number', 'boolean', 'select', 'date', 'datetime', 'image', 'file', 'rich_text'];
-            if (!in_array($field['type'], $validTypes)) {
+            if (! in_array($field['type'], $validTypes)) {
                 return false;
             }
         }

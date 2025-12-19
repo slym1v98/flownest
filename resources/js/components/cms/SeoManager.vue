@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Search, Facebook, Twitter } from 'lucide-vue-next';
+import { Textarea } from '@/components/ui/textarea';
+import { Facebook, Search, Twitter } from 'lucide-vue-next';
+import { computed } from 'vue';
 
 interface SeoData {
     meta_title?: string;
@@ -135,7 +135,12 @@ const descriptionStatus = computed(() => {
                         id="meta_title"
                         :value="seoData.meta_title"
                         placeholder="Optimized title for search engines"
-                        @input="updateField('meta_title', ($event.target as HTMLInputElement).value)"
+                        @input="
+                            updateField(
+                                'meta_title',
+                                ($event.target as HTMLInputElement).value,
+                            )
+                        "
                     />
                     <p class="text-xs text-muted-foreground">
                         Recommended: 30-60 characters
@@ -163,7 +168,12 @@ const descriptionStatus = computed(() => {
                         :value="seoData.meta_description"
                         placeholder="Brief description for search results"
                         rows="3"
-                        @input="updateField('meta_description', ($event.target as HTMLTextAreaElement).value)"
+                        @input="
+                            updateField(
+                                'meta_description',
+                                ($event.target as HTMLTextAreaElement).value,
+                            )
+                        "
                     />
                     <p class="text-xs text-muted-foreground">
                         Recommended: 120-160 characters
@@ -177,7 +187,12 @@ const descriptionStatus = computed(() => {
                         id="meta_keywords"
                         :value="seoData.meta_keywords"
                         placeholder="keyword1, keyword2, keyword3"
-                        @input="updateField('meta_keywords', ($event.target as HTMLInputElement).value)"
+                        @input="
+                            updateField(
+                                'meta_keywords',
+                                ($event.target as HTMLInputElement).value,
+                            )
+                        "
                     />
                     <p class="text-xs text-muted-foreground">
                         Comma-separated keywords
@@ -217,9 +232,7 @@ const descriptionStatus = computed(() => {
                     <Facebook class="size-4 text-[#1877f2]" />
                     <h4 class="text-sm font-medium">Facebook Preview</h4>
                 </div>
-                <div
-                    class="overflow-hidden rounded-lg border bg-background"
-                >
+                <div class="overflow-hidden rounded-lg border bg-background">
                     <div
                         v-if="seoData.og_image"
                         class="aspect-video w-full bg-muted"
@@ -237,9 +250,9 @@ const descriptionStatus = computed(() => {
                         No image set
                     </div>
                     <div class="space-y-1 border-t p-3">
-                            <div class="text-xs uppercase text-muted-foreground">
-                                {{ new URL(displayUrl).hostname }}
-                            </div>
+                        <div class="text-xs text-muted-foreground uppercase">
+                            {{ new URL(displayUrl).hostname }}
+                        </div>
                         <div class="font-semibold">{{ ogTitle }}</div>
                         <div class="line-clamp-2 text-sm text-muted-foreground">
                             {{ ogDescription }}
@@ -249,7 +262,9 @@ const descriptionStatus = computed(() => {
 
                 <!-- OG Fields (Collapsed by default) -->
                 <details class="space-y-2">
-                    <summary class="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
+                    <summary
+                        class="cursor-pointer text-sm text-muted-foreground hover:text-foreground"
+                    >
                         Customize Open Graph tags
                     </summary>
                     <div class="space-y-3 pt-2">
@@ -259,7 +274,13 @@ const descriptionStatus = computed(() => {
                                 id="og_title"
                                 :value="seoData.og_title"
                                 placeholder="Leave empty to use meta title"
-                                @input="updateField('og_title', ($event.target as HTMLInputElement).value)"
+                                @input="
+                                    updateField(
+                                        'og_title',
+                                        ($event.target as HTMLInputElement)
+                                            .value,
+                                    )
+                                "
                             />
                         </div>
                         <div class="space-y-1.5">
@@ -269,7 +290,13 @@ const descriptionStatus = computed(() => {
                                 :value="seoData.og_description"
                                 placeholder="Leave empty to use meta description"
                                 rows="2"
-                                @input="updateField('og_description', ($event.target as HTMLTextAreaElement).value)"
+                                @input="
+                                    updateField(
+                                        'og_description',
+                                        ($event.target as HTMLTextAreaElement)
+                                            .value,
+                                    )
+                                "
                             />
                         </div>
                         <div class="space-y-1.5">
@@ -278,7 +305,13 @@ const descriptionStatus = computed(() => {
                                 id="og_image"
                                 :value="seoData.og_image"
                                 placeholder="https://example.com/image.jpg"
-                                @input="updateField('og_image', ($event.target as HTMLInputElement).value)"
+                                @input="
+                                    updateField(
+                                        'og_image',
+                                        ($event.target as HTMLInputElement)
+                                            .value,
+                                    )
+                                "
                             />
                         </div>
                     </div>
@@ -293,9 +326,7 @@ const descriptionStatus = computed(() => {
                     <Twitter class="size-4 text-[#1da1f2]" />
                     <h4 class="text-sm font-medium">Twitter Card Preview</h4>
                 </div>
-                <div
-                    class="overflow-hidden rounded-lg border bg-background"
-                >
+                <div class="overflow-hidden rounded-lg border bg-background">
                     <div
                         v-if="seoData.twitter_image || seoData.og_image"
                         class="aspect-video w-full bg-muted"
@@ -325,7 +356,9 @@ const descriptionStatus = computed(() => {
 
                 <!-- Twitter Fields (Collapsed by default) -->
                 <details class="space-y-2">
-                    <summary class="cursor-pointer text-sm text-muted-foreground hover:text-foreground">
+                    <summary
+                        class="cursor-pointer text-sm text-muted-foreground hover:text-foreground"
+                    >
                         Customize Twitter Card tags
                     </summary>
                     <div class="space-y-3 pt-2">
@@ -335,17 +368,31 @@ const descriptionStatus = computed(() => {
                                 id="twitter_title"
                                 :value="seoData.twitter_title"
                                 placeholder="Leave empty to use meta title"
-                                @input="updateField('twitter_title', ($event.target as HTMLInputElement).value)"
+                                @input="
+                                    updateField(
+                                        'twitter_title',
+                                        ($event.target as HTMLInputElement)
+                                            .value,
+                                    )
+                                "
                             />
                         </div>
                         <div class="space-y-1.5">
-                            <Label for="twitter_description">Twitter Description</Label>
+                            <Label for="twitter_description"
+                                >Twitter Description</Label
+                            >
                             <Textarea
                                 id="twitter_description"
                                 :value="seoData.twitter_description"
                                 placeholder="Leave empty to use meta description"
                                 rows="2"
-                                @input="updateField('twitter_description', ($event.target as HTMLTextAreaElement).value)"
+                                @input="
+                                    updateField(
+                                        'twitter_description',
+                                        ($event.target as HTMLTextAreaElement)
+                                            .value,
+                                    )
+                                "
                             />
                         </div>
                         <div class="space-y-1.5">
@@ -354,7 +401,13 @@ const descriptionStatus = computed(() => {
                                 id="twitter_image"
                                 :value="seoData.twitter_image"
                                 placeholder="Leave empty to use OG image"
-                                @input="updateField('twitter_image', ($event.target as HTMLInputElement).value)"
+                                @input="
+                                    updateField(
+                                        'twitter_image',
+                                        ($event.target as HTMLInputElement)
+                                            .value,
+                                    )
+                                "
                             />
                         </div>
                     </div>

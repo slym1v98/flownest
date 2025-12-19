@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
-import { router } from '@inertiajs/vue3';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import {
     Dialog,
     DialogContent,
@@ -12,9 +9,11 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
-import { Image as ImageIcon, Upload, Search, X } from 'lucide-vue-next';
-import type { Media } from '@/types/media';
+import { Input } from '@/components/ui/input';
 import { getCsrfToken } from '@/lib/utils';
+import type { Media } from '@/types/media';
+import { Image as ImageIcon, Search, Upload, X } from 'lucide-vue-next';
+import { computed, ref, watch } from 'vue';
 
 interface Props {
     modelValue?: Media | Media[] | null;
@@ -163,10 +162,7 @@ const currentSelection = computed(() => {
 <template>
     <div class="space-y-2">
         <!-- Selected Media Preview -->
-        <div
-            v-if="currentSelection.length > 0"
-            class="flex flex-wrap gap-2"
-        >
+        <div v-if="currentSelection.length > 0" class="flex flex-wrap gap-2">
             <div
                 v-for="media in currentSelection"
                 :key="media.id"
@@ -179,7 +175,7 @@ const currentSelection = computed(() => {
                 />
                 <button
                     type="button"
-                    class="absolute right-1 top-1 rounded-full bg-destructive p-1 text-destructive-foreground"
+                    class="absolute top-1 right-1 rounded-full bg-destructive p-1 text-destructive-foreground"
                     @click="removeSelectedMedia(media)"
                 >
                     <X class="size-3" />
@@ -236,7 +232,7 @@ const currentSelection = computed(() => {
                     <!-- Search -->
                     <div class="relative">
                         <Search
-                            class="absolute left-2 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                            class="absolute top-1/2 left-2 size-4 -translate-y-1/2 text-muted-foreground"
                         />
                         <Input
                             v-model="searchQuery"
@@ -247,9 +243,7 @@ const currentSelection = computed(() => {
                     </div>
 
                     <!-- Media Grid -->
-                    <div
-                        class="max-h-96 overflow-y-auto rounded border p-2"
-                    >
+                    <div class="max-h-96 overflow-y-auto rounded border p-2">
                         <div
                             v-if="isLoading"
                             class="py-8 text-center text-sm text-muted-foreground"
@@ -309,7 +303,12 @@ const currentSelection = computed(() => {
                         @click="confirmSelection"
                         :disabled="selectedMedia.length === 0"
                     >
-                        Select {{ selectedMedia.length > 0 ? `(${selectedMedia.length})` : '' }}
+                        Select
+                        {{
+                            selectedMedia.length > 0
+                                ? `(${selectedMedia.length})`
+                                : ''
+                        }}
                     </Button>
                 </DialogFooter>
             </DialogContent>

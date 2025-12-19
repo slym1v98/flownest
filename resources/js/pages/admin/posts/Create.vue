@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Head, useForm } from '@inertiajs/vue3';
-import AppLayout from '@/layouts/AppLayout.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Switch } from '@/components/ui/switch';
-import { Card } from '@/components/ui/card';
 import Editor from '@/components/cms/Editor.vue';
 import SeoManager from '@/components/cms/SeoManager.vue';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+import AppLayout from '@/layouts/AppLayout.vue';
+import { Head, useForm } from '@inertiajs/vue3';
 import { Save } from 'lucide-vue-next';
 
 const form = useForm({
@@ -139,19 +139,23 @@ const submit = () => {
                                     <select
                                         id="status"
                                         v-model="form.status"
-                                        class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                        class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden"
                                     >
                                         <option value="draft">Draft</option>
                                         <option value="published">
                                             Published
                                         </option>
-                                        <option value="archived">Archived</option>
+                                        <option value="archived">
+                                            Archived
+                                        </option>
                                     </select>
                                 </div>
 
                                 <!-- Featured -->
                                 <div class="flex items-center justify-between">
-                                    <Label for="is_featured">Featured Post</Label>
+                                    <Label for="is_featured"
+                                        >Featured Post</Label
+                                    >
                                     <Switch
                                         id="is_featured"
                                         v-model:checked="form.is_featured"
@@ -174,7 +178,9 @@ const submit = () => {
                             :disabled="form.processing"
                         >
                             <Save class="mr-2 size-4" />
-                            {{ form.processing ? 'Creating...' : 'Create Post' }}
+                            {{
+                                form.processing ? 'Creating...' : 'Create Post'
+                            }}
                         </Button>
                     </div>
                 </div>

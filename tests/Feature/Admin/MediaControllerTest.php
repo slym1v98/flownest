@@ -71,13 +71,13 @@ class MediaControllerTest extends TestCase
             'name' => 'Test Image',
             'user_id' => $this->user->id,
         ]);
-        
+
         $file = UploadedFile::fake()->image('test.jpg');
         $media = $mediaItem->addMedia($file)->toMediaCollection('default');
 
         // Try to delete as another user
         $anotherUser = User::factory()->create();
-        
+
         $response = $this->actingAs($anotherUser)
             ->delete("/admin/media/{$media->id}");
 
@@ -91,7 +91,7 @@ class MediaControllerTest extends TestCase
             'name' => 'Test Image',
             'user_id' => $this->user->id,
         ]);
-        
+
         $file = UploadedFile::fake()->image('test.jpg');
         $media = $mediaItem->addMedia($file)->toMediaCollection('default');
 
