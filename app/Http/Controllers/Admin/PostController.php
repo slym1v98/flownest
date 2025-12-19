@@ -97,7 +97,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post): Response
+    public function edit(Request $request, Post $post): Response
     {
         $post->load('user', 'reviewer', 'media', 'revisions.user');
 

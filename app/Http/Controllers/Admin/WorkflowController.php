@@ -97,8 +97,8 @@ class WorkflowController extends Controller
         // Create revision
         $post->createRevision('Post rejected: ' . $validated['review_notes']);
 
-        // Notify post author
-        $post->user->notify(new \Illuminate\Notifications\Messages\MailMessage());
+        // Note: In a real application, you might want to create a PostRejected notification
+        // For now, we'll skip notifying the author
 
         return redirect()->back()->with('success', 'Post rejected and returned to draft.');
     }

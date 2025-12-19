@@ -19,7 +19,11 @@ class PostFactory extends Factory
         $title = fake()->sentence();
 
         return [
-            'title' => $title,
+            'title' => [
+                'en' => $title,
+                'vi' => fake()->sentence(),
+                'jp' => fake()->sentence(),
+            ],
             'slug' => \Illuminate\Support\Str::slug($title),
             'content' => [
                 'type' => 'doc',
@@ -35,8 +39,12 @@ class PostFactory extends Factory
                     ],
                 ],
             ],
-            'excerpt' => fake()->paragraph(),
-            'status' => fake()->randomElement(['draft', 'published', 'archived']),
+            'excerpt' => [
+                'en' => fake()->paragraph(),
+                'vi' => fake()->paragraph(),
+                'jp' => fake()->paragraph(),
+            ],
+            'status' => fake()->randomElement(['draft', 'pending_review', 'published', 'archived']),
             'is_featured' => fake()->boolean(20),
             'seo_data' => [
                 'meta_title' => $title,
