@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Actions\Fortify;
+namespace App\Traits;
 
 use Illuminate\Validation\Rules\Password;
 
@@ -13,6 +13,11 @@ trait PasswordValidationRules
      */
     protected function passwordRules(): array
     {
-        return ['required', 'string', Password::default(), 'confirmed'];
+        return [
+            'required',
+            'string',
+            Password::default(),
+            'confirmed'
+        ];
     }
 }
