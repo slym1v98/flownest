@@ -1,10 +1,10 @@
 {
-    "name": "nwidart/authentication",
+    "name": "flownest/dashboard",
     "description": "",
     "authors": [
         {
-            "name": "Nicolas Widart",
-            "email": "n.widart@gmail.com"
+            "name": "Flownest",
+            "email": "contact@flownest.net"
         }
     ],
     "extra": {
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\Authentication\\": "app/"
+            "Modules\\Dashboard\\": "app/"
         }
     }
 }

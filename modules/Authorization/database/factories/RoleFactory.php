@@ -3,20 +3,25 @@
 namespace Modules\Authorization\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Authorization\Models\Role;
 
 class RoleFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      */
-    protected $model = \Modules\Authorization\Models\Role::class;
+    protected $model = Role::class;
 
     /**
      * Define the model's default state.
      */
     public function definition(): array
     {
-        return [];
+        return [
+            'name' => fake()->word(),
+            'guard_name' => 'web',
+            'description' => fake()->sentence(),
+        ];
     }
 }
 

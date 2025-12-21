@@ -1,18 +1,18 @@
 <?php
 
-namespace Modules\Authorization\Providers;
+namespace Modules\Dashboard\Providers;
 
 use App\Traits\HasModuleRegistrations;
 use Illuminate\Support\ServiceProvider;
 use Nwidart\Modules\Traits\PathNamespace;
 
-class AuthorizationServiceProvider extends ServiceProvider
+class DashboardServiceProvider extends ServiceProvider
 {
     use PathNamespace, HasModuleRegistrations;
 
-    protected string $name = 'Authorization';
+    protected string $name = 'Dashboard';
 
-    protected string $nameLower = 'authorization';
+    protected string $nameLower = 'dashboard';
 
     /**
      * Boot the application events.
@@ -20,7 +20,6 @@ class AuthorizationServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerConfig();
-        $this->loadMigrationsFrom(module_path($this->name, '$MIGRATIONS_PATH$'));
     }
 
     /**

@@ -90,7 +90,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This key is utilized by Laravel's encryption services and should be set
-    | to a random, 32 character string to ensure that all encrypted values
+    | to a random, 32-character string to ensure that all encrypted values
     | are secure. You should do this prior to deploying the application.
     |
     */
@@ -122,12 +122,4 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
-
-    // Admin Configurations
-    'admin' => [
-        'url' => env('ADMIN_URL', env('APP_URL', 'http://localhost')),
-        'prefix' => env('ADMIN_PREFIX', 'admin'),
-    ],
-
-    // Api
 ];

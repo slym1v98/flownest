@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import AuthBase from '@/layouts/AuthLayout.vue';
-import { register } from '@/routes';
+// import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
 import { Form, Head } from '@inertiajs/vue3';
@@ -41,18 +41,18 @@ defineProps<{
         >
             <div class="grid gap-6">
                 <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
+                    <Label for="username">Username</Label>
                     <Input
-                        id="email"
-                        type="email"
-                        name="email"
+                        id="username"
+                        type="text"
+                        name="username"
                         required
                         autofocus
                         :tabindex="1"
-                        autocomplete="email"
-                        placeholder="email@example.com"
+                        autocomplete="username"
+                        placeholder="Username"
                     />
-                    <InputError :message="errors.email" />
+                    <InputError :message="errors.username" />
                 </div>
 
                 <div class="grid gap-2">
@@ -98,13 +98,13 @@ defineProps<{
                 </Button>
             </div>
 
-            <div
-                class="text-center text-sm text-muted-foreground"
-                v-if="canRegister"
-            >
-                Don't have an account?
-                <TextLink :href="register()" :tabindex="5">Sign up</TextLink>
-            </div>
+            <!--            <div-->
+            <!--                class="text-center text-sm text-muted-foreground"-->
+            <!--                v-if="canRegister"-->
+            <!--            >-->
+            <!--                Don't have an account?-->
+            <!--                <TextLink :href="register()" :tabindex="5">Sign up</TextLink>-->
+            <!--            </div>-->
         </Form>
     </AuthBase>
 </template>
