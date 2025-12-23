@@ -16,7 +16,14 @@ class AuthorizationDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        if(!app()->environment('local')) return;
+        $this->runOnDevelopment();
+    }
+
+    protected function runOnDevelopment(): void
+    {
+        if (!app()->environment('local')) {
+            return;
+        }
 
         $roles = [];
         foreach (RoleEnum::cases() as $role) {
@@ -29,6 +36,7 @@ class AuthorizationDatabaseSeeder extends Seeder
         $insertedRoles = Role::factory()->createMany($roles);
         $insertedPermissions = Permission::factory()->createMany([
             ['name' => 'access-dashboard', 'guard_name' => 'web', 'description' => 'Access Admin Dashboard'],
+            ['name' => 'manage-content-types', 'guard_name' => 'web', 'description' => 'Manage Content Types'],
         ]);
         $insertedRoles->each(function (Role $role) use ($insertedPermissions) {
             if ($role->name === RoleEnum::GUEST->value) {

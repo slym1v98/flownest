@@ -14,39 +14,46 @@ class UserDatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        if(!app()->environment('local')) return;
+        $this->runOnDevelopment();
+    }
+
+    protected function runOnDevelopment(): void
+    {
+        if (!app()->environment('local')) {
+            return;
+        }
 
         User::factory()->create([
-            'name' => 'Admin',
-            'email' => 'admin@flownest.net',
-            'username' => 'admin',
-            'password' => Hash::make('@Admin123'),
+            'name'              => 'Admin',
+            'email'             => 'admin@flownest.net',
+            'username'          => 'admin',
+            'password'          => Hash::make('@Admin123'),
             'email_verified_at' => now(),
-            'remember_token' => Str::random(10),
+            'remember_token'    => Str::random(10),
         ]);
 
         User::factory()->create([
-            'name' => 'Publisher',
-            'email' => 'publisher@flownest.net',
-            'username' => 'publisher',
-            'password' => Hash::make('@Publisher123'),
+            'name'              => 'Publisher',
+            'email'             => 'publisher@flownest.net',
+            'username'          => 'publisher',
+            'password'          => Hash::make('@Publisher123'),
             'email_verified_at' => now(),
-            'remember_token' => Str::random(10),
+            'remember_token'    => Str::random(10),
         ]);
 
         User::factory()->create([
-            'name' => 'Editor',
-            'email' => 'editor@flownest.net',
-            'username' => 'editor',
-            'password' => Hash::make('@Editor123'),
+            'name'              => 'Editor',
+            'email'             => 'editor@flownest.net',
+            'username'          => 'editor',
+            'password'          => Hash::make('@Editor123'),
             'email_verified_at' => now(),
-            'remember_token' => Str::random(10),
+            'remember_token'    => Str::random(10),
         ]);
 
         User::factory(5)->create([
-            'password' => Hash::make('@Guest123'),
+            'password'          => Hash::make('@Guest123'),
             'email_verified_at' => now(),
-            'remember_token' => Str::random(10),
+            'remember_token'    => Str::random(10),
         ]);
     }
 }

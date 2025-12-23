@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Modules\Authorization\Database\Seeders\AuthorizationDatabaseSeeder;
+use Modules\Content\Database\Seeders\ContentDatabaseSeeder;
 use Modules\User\Database\Seeders\UserDatabaseSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        if (app()->environment('local')) {
-            $this->call([
-                UserDatabaseSeeder::class,
-                AuthorizationDatabaseSeeder::class,
-            ]);
-        }
+        $this->call([
+            UserDatabaseSeeder::class,
+            AuthorizationDatabaseSeeder::class,
+            ContentDatabaseSeeder::class,
+        ]);
     }
 }

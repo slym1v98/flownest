@@ -1,0 +1,25 @@
+{
+    "name": "flownest/content",
+    "description": "",
+    "authors": [
+        {
+            "name": "Flownest",
+            "email": "contact@flownest.net"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Content\\": "app/",
+            "Modules\\Content\\Database\\Factories\\": "database/factories/",
+            "Modules\\Content\\Database\\Seeders\\": "database/seeders/"
+        }
+    }
+}
